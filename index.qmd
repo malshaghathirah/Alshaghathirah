@@ -1,0 +1,53 @@
+---
+title: "Mohammed Alshaghathirah"
+format: html
+page-layout: article
+---
+
+# About Me
+
+Hello! I'm Mohammed Alshaghathirah, a graduate student pursuing a Master of Quantitative Finance at UC San Diego.  
+I have a strong background in **procurement**, **sales**, and **administrative coordination**, with experience across both the retail and e-commerce sectors. I'm passionate about financial data analysis, business operations, and using technology to drive smart decision-making.
+
+---
+
+## 🧑‍💼 Experience
+
+### **Volunteer**, Saudi Student Association (SSA), Chico, CA  
+*September 2015 – September 2017*  
+- Helped organize events including Saudi National Day.  
+- Led a team of Saudi students at international festivals.
+
+### **Procurement Specialist**, Coffee Box 365 (E-commerce Business), Riyadh, SA  
+*April 2020 – January 2023*  
+- Managed advertising campaigns through social media.  
+- Built strong supplier and customer relationships.  
+- Analyzed marketing and merchandising performance.  
+- Sold coffee to local coffee shops and restaurants.  
+- Sourced products and negotiated supplier deals.
+
+### **Administrative Coordinator / Salesman**, Aljazeera Markets, Riyadh, SA  
+*January 2023 – September 2024*  
+- Oversaw full supply chain operations.  
+- Ensured timely flow of goods from suppliers to retailers.  
+- Managed sales department operations.  
+- Handled food redistribution to markets and hypermarkets.
+
+---
+
+## 🌐 Languages
+
+- Native Arabic  
+- Fluent English  
+
+---
+
+## 🛠️ Skills
+
+- MS Office, Google Drive, Email  
+- Data Analysis, Time Management  
+- Problem-Solving, Communication  
+
+---
+
+Thank you for visiting my website! Feel free to check out my [Projects](projects/index.qmd) to see my academic work and personal data projects.
