@@ -1,0 +1,18 @@
+---
+title: "Projects & Homework"
+format: html
+page-layout: article
+---
+
+# Projects & Homework
+
+Welcome to my project archive!  
+Below are links to my assignments and personal projects.
+
+## Homework Assignments
+
+- *(Links to notebooks will go here)*
+
+## Independent Projects
+
+- *(Coming soon!)*
