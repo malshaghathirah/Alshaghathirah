@@ -4,3 +4,4 @@ format: html
 page-layout: article
 ---
 - [Karlan & List (2007) Homework – View Notebook](projects/hw1.ipynb)
+
