@@ -1,0 +1,11 @@
+---
+title: "Homework 1"
+format: html
+page-layout: article
+---
+
+# Homework 1
+
+Here is my analysis for Homework 1.  
+👉 [Click here to view the full blog post](karlan_list_hw1.html)
+
