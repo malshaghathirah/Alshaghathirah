@@ -3,5 +3,5 @@ title: "Projects & Homework"
 format: html
 page-layout: article
 ---
-- [Karlan & List (2007) Homework – View Notebook](projects/hw1.ipynb)
+- [Karlan & List (2007) Homework – View Notebook](projects/karlan list hw1.html)
 
