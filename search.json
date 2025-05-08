@@ -1,5 +1,19 @@
 [
   {
+    "objectID": "homework2.html",
+    "href": "homework2.html",
+    "title": "Homework 2",
+    "section": "",
+    "text": "Homework 2: Poisson Regression & MLE\n👉 Click here to view the full blog post"
+  },
+  {
+    "objectID": "homework1.html",
+    "href": "homework1.html",
+    "title": "Homework 1",
+    "section": "",
+    "text": "Homework 1\nHere is my analysis for Homework 1.\n👉 Click here to view the full blog post"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Mohammed Alshaghathirah",
@@ -33,12 +47,5 @@
     "title": "Mohammed Alshaghathirah",
     "section": "",
     "text": "Homework 1: Matching Donations Replication"
-  },
-  {
-    "objectID": "homework1.html",
-    "href": "homework1.html",
-    "title": "Homework 1",
-    "section": "",
-    "text": "Homework 1\nHere is my analysis for Homework 1.\n👉 Click here to view the full blog post"
   }
 ]
