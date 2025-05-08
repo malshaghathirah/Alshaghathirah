@@ -1,0 +1,10 @@
+---
+title: "Homework 2"
+format: html
+page-layout: article
+---
+
+# Homework 2: Poisson Regression & MLE
+
+
+👉 [Click here to view the full blog post](homework2.html)
