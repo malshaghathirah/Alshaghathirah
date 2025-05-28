@@ -1,0 +1,18 @@
+---
+title: "Homework 3: Multinomial Logit and Bayesian Estimation"
+format: html
+---
+
+```{python}
+#| echo: false
+# Load the notebook content
+import nbformat
+from IPython.display import display, Markdown
+
+with open("homework 3.html") as f:
+    nb = nbformat.read(f, as_version=4)
+    for cell in nb.cells:
+        if cell.cell_type == 'markdown':
+            display(Markdown(cell.source))
+        elif cell.cell_type == 'code':
+            exec(cell.source)
