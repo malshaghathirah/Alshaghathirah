@@ -1,0 +1,9 @@
+title: "Homework 3"
+format: html
+page-layout: article
+---
+
+# Homework 3: Multinomial Logit Model
+
+
+👉 [Click here to view the full blog post](homework 3.html)
