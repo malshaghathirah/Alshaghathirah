@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.31">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Multinomial Logit Model – Mohammed Alshaghathirah</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-dde8d7229bfee0f8bb5efd37f0f9ae1e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Mohammed Alshaghathirah</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">About Me</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./projects/index.qmd"> 
+<span class="menu-text">Projects</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#likelihood-for-the-multinomial-logit-mnl-model" id="toc-likelihood-for-the-multinomial-logit-mnl-model" class="nav-link" data-scroll-target="#likelihood-for-the-multinomial-logit-mnl-model">1. Likelihood for the Multinomial Logit (MNL) Model</a></li>
+  <li><a href="#structure-of-the-simulated-dataset" id="toc-structure-of-the-simulated-dataset" class="nav-link" data-scroll-target="#structure-of-the-simulated-dataset">2. Structure of the Simulated Dataset</a></li>
+  <li><a href="#estimating-the-mnl-model-via-maximum-likelihood" id="toc-estimating-the-mnl-model-via-maximum-likelihood" class="nav-link" data-scroll-target="#estimating-the-mnl-model-via-maximum-likelihood">3. Estimating the MNL Model via Maximum Likelihood</a></li>
+  <li><a href="#estimating-the-mnl-model-via-maximum-likelihood-1" id="toc-estimating-the-mnl-model-via-maximum-likelihood-1" class="nav-link" data-scroll-target="#estimating-the-mnl-model-via-maximum-likelihood-1">3. Estimating the MNL Model via Maximum Likelihood</a>
+  <ul class="collapse">
+  <li><a href="#estimated-coefficients" id="toc-estimated-coefficients" class="nav-link" data-scroll-target="#estimated-coefficients">Estimated Coefficients:</a></li>
+  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation:</a></li>
+  </ul></li>
+  <li><a href="#bayesian-estimation-using-metropolis-hastings" id="toc-bayesian-estimation-using-metropolis-hastings" class="nav-link" data-scroll-target="#bayesian-estimation-using-metropolis-hastings">4. Bayesian Estimation using Metropolis-Hastings</a></li>
+  <li><a href="#bayesian-estimation-using-metropolis-hastings-1" id="toc-bayesian-estimation-using-metropolis-hastings-1" class="nav-link" data-scroll-target="#bayesian-estimation-using-metropolis-hastings-1">4. Bayesian Estimation using Metropolis-Hastings</a>
+  <ul class="collapse">
+  <li><a href="#posterior-mean-estimates" id="toc-posterior-mean-estimates" class="nav-link" data-scroll-target="#posterior-mean-estimates">Posterior Mean Estimates</a></li>
+  </ul></li>
+  <li><a href="#comparing-mle-and-bayesian-estimates" id="toc-comparing-mle-and-bayesian-estimates" class="nav-link" data-scroll-target="#comparing-mle-and-bayesian-estimates">5. Comparing MLE and Bayesian Estimates</a>
+  <ul class="collapse">
+  <li><a href="#interpretation-1" id="toc-interpretation-1" class="nav-link" data-scroll-target="#interpretation-1">Interpretation</a></li>
+  </ul></li>
+  <li><a href="#conclusions-and-recommendations" id="toc-conclusions-and-recommendations" class="nav-link" data-scroll-target="#conclusions-and-recommendations">6. Conclusions and Recommendations</a>
+  <ul class="collapse">
+  <li><a href="#key-findings" id="toc-key-findings" class="nav-link" data-scroll-target="#key-findings">Key Findings:</a></li>
+  <li><a href="#recommendations" id="toc-recommendations" class="nav-link" data-scroll-target="#recommendations">Recommendations:</a></li>
+  <li><a href="#final-note" id="toc-final-note" class="nav-link" data-scroll-target="#final-note">Final Note:</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Multinomial Logit Model</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>Author:</strong> Mohammed Alshaghathirah<br>
+<strong>Date:</strong> May 28, 2025</p>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Understanding how consumers make choices between competing products is a central question in marketing analytics. One widely used approach to modeling such decisions is <strong>conjoint analysis</strong>, which helps us infer preferences based on observed choices among different product configurations. In this assignment, we analyze simulated conjoint data using the <strong>Multinomial Logit Model (MNL)</strong> — a powerful tool for modeling discrete choices.</p>
+<p>The MNL model assumes that each consumer chooses the product that provides the highest utility, where utility is a function of observable product attributes (e.g., brand, advertising, price) and a random error term. This framework enables us to estimate how much each attribute contributes to consumer preferences.</p>
+<p>Our analysis proceeds in two main parts:</p>
+<ol type="1">
+<li><strong>Maximum Likelihood Estimation (MLE)</strong> — We estimate the model by finding the parameters that maximize the likelihood of observing the choices in our data.</li>
+<li><strong>Bayesian Estimation using Metropolis-Hastings MCMC</strong> — We apply a Bayesian approach to estimate the posterior distribution of the parameters, allowing for uncertainty quantification and comparison with the MLE results.</li>
+</ol>
+<p>The goal is not only to estimate consumer preferences but also to interpret the results in a meaningful, business-relevant context.</p>
+</section>
+<section id="likelihood-for-the-multinomial-logit-mnl-model" class="level2">
+<h2 class="anchored" data-anchor-id="likelihood-for-the-multinomial-logit-mnl-model">1. Likelihood for the Multinomial Logit (MNL) Model</h2>
+<p>We assume each consumer selects one product from a set of alternatives. The utility that consumer ( i ) derives from product ( j ) is:</p>
+<p><span class="math display">\[
+U_{ij} = x_j' \beta + \epsilon_{ij}
+\]</span></p>
+<p>where: - ( x_j ) is a vector of product attributes (e.g., brand, ad, price), - ( ) is a vector of coefficients (part-worth utilities), - ( _{ij} (0, 1) )</p>
+<p>This leads to the well-known logit choice probability:</p>
+<p><span class="math display">\[
+\mathbb{P}_i(j) = \frac{e^{x_j' \beta}}{\sum_{k=1}^J e^{x_k' \beta}}
+\]</span></p>
+<p>This closed-form solution allows us to estimate ( ) using maximum likelihood or Bayesian methods.</p>
+</section>
+<section id="structure-of-the-simulated-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="structure-of-the-simulated-dataset">2. Structure of the Simulated Dataset</h2>
+<p>Before estimating the Multinomial Logit model, we begin by exploring the structure of the conjoint dataset.</p>
+<p>Each row in the dataset corresponds to a product profile evaluated by a respondent in a choice task. The dataset includes the following variables:</p>
+<ul>
+<li><code>resp</code>: Respondent ID</li>
+<li><code>task</code>: Choice task number</li>
+<li><code>choice</code>: Indicator variable (1 if the product was chosen, 0 otherwise)</li>
+<li><code>brand</code>: Product brand (categorical: N, H, P)</li>
+<li><code>ad</code>: Whether the product had advertising support (Yes or No)</li>
+<li><code>price</code>: Price of the product</li>
+</ul>
+<p>We load the data and display the first few rows:</p>
+<div id="cell-5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:206}}" data-outputid="aba7e427-a454-404f-d499-cd3d7ce2f5d0" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>conjoint <span class="op">=</span> pd.read_csv(<span class="st">"/content/conjoint_data.csv"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>conjoint.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div id="df-4fe214e3-3f29-481b-ad8b-ff22aa8cbcc5" class="colab-df-container">
+    <div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">resp</th>
+<th data-quarto-table-cell-role="th">task</th>
+<th data-quarto-table-cell-role="th">choice</th>
+<th data-quarto-table-cell-role="th">brand</th>
+<th data-quarto-table-cell-role="th">ad</th>
+<th data-quarto-table-cell-role="th">price</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>N</td>
+<td>Yes</td>
+<td>28</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>H</td>
+<td>Yes</td>
+<td>16</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>P</td>
+<td>Yes</td>
+<td>16</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>1</td>
+<td>2</td>
+<td>0</td>
+<td>N</td>
+<td>Yes</td>
+<td>32</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>P</td>
+<td>Yes</td>
+<td>16</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-4fe214e3-3f29-481b-ad8b-ff22aa8cbcc5')" title="Convert this dataframe to an interactive table." style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-4fe214e3-3f29-481b-ad8b-ff22aa8cbcc5 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-4fe214e3-3f29-481b-ad8b-ff22aa8cbcc5');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+    <div id="df-2c5b66bc-1aff-465c-8c17-e71e14429073">
+      <button class="colab-df-quickchart" onclick="quickchart('df-2c5b66bc-1aff-465c-8c17-e71e14429073')" title="Suggest charts" style="display:none;">
+
+<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 0 24 24" width="24px">
+    <g>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"></path>
+    </g>
+</svg>
+      </button>
+
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+
+      <script>
+        async function quickchart(key) {
+          const quickchartButtonEl =
+            document.querySelector('#' + key + ' button');
+          quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+          quickchartButtonEl.classList.add('colab-df-spinner');
+          try {
+            const charts = await google.colab.kernel.invokeFunction(
+                'suggestCharts', [key], {});
+          } catch (error) {
+            console.error('Error during call to suggestCharts:', error);
+          }
+          quickchartButtonEl.classList.remove('colab-df-spinner');
+          quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+        }
+        (() => {
+          let quickchartButtonEl =
+            document.querySelector('#df-2c5b66bc-1aff-465c-8c17-e71e14429073 button');
+          quickchartButtonEl.style.display =
+            google.colab.kernel.accessAllowed ? 'block' : 'none';
+        })();
+      </script>
+    </div>
+
+    </div>
+  </div>
+</div>
+</div>
+<p>The dataset preview above shows the structure of our conjoint experiment data. Each row represents a specific product profile shown to a respondent during a choice task.</p>
+<ul>
+<li>In the first task (<code>task = 1</code>) for <code>resp = 1</code>, the respondent was shown three alternatives (<code>brand = N</code>, <code>H</code>, <code>P</code>) and chose the product from brand <code>N</code> (<code>choice = 1</code>).</li>
+<li>In the second task (<code>task = 2</code>), the same respondent chose the product from brand <code>P</code>.</li>
+</ul>
+<p>Each product is defined by its brand, whether it had advertising (<code>ad</code>), and its price. This structure will be key for estimating the utility values associated with each attribute using a Multinomial Logit model.</p>
+<p>We can also check basic summary statistics and the number of respondents and tasks:</p>
+<div id="cell-8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="3c24aebc-1b4c-4e63-ca55-5a7a58cc74f4" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>conjoint.describe()</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Unique respondents:"</span>, conjoint[<span class="st">'resp'</span>].nunique())</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Unique tasks per respondent:"</span>, conjoint.groupby(<span class="st">'resp'</span>)[<span class="st">'task'</span>].nunique().mean())</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Unique brands:"</span>, conjoint[<span class="st">'brand'</span>].unique())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Unique respondents: 100
+Unique tasks per respondent: 10.0
+Unique brands: ['N' 'H' 'P']</code></pre>
+</div>
+</div>
+<p>From our summary inspection, we observe the following about the dataset:</p>
+<ul>
+<li>There are <strong>100 unique respondents</strong>, each participating in the experiment.</li>
+<li>Each respondent completed exactly <strong>10 choice tasks</strong>.</li>
+<li>In each task, they evaluated and selected among <strong>3 product alternatives</strong>.</li>
+<li>The product options span <strong>3 different brands</strong>: <code>'N'</code>, <code>'H'</code>, and <code>'P'</code>.</li>
+</ul>
+<p>This balanced panel structure — where all respondents evaluate the same number of tasks with consistent product configurations — makes the data well-suited for estimating a Multinomial Logit model.</p>
+</section>
+<section id="estimating-the-mnl-model-via-maximum-likelihood" class="level2">
+<h2 class="anchored" data-anchor-id="estimating-the-mnl-model-via-maximum-likelihood">3. Estimating the MNL Model via Maximum Likelihood</h2>
+<p>We begin by estimating the parameters of the Multinomial Logit model using Maximum Likelihood Estimation (MLE). The utility that respondent ( i ) derives from alternative ( j ) in task ( t ) is modeled as:</p>
+<p><span class="math display">\[
+U_{ijt} = x_{ijt}' \beta + \epsilon_{ijt}
+\]</span></p>
+<p>where: - ( x_{ijt} ) includes product attributes such as brand, ad exposure, and price, - ( ) is a vector of coefficients (part-worth utilities), - ( _{ijt} (0, 1) ).</p>
+<p>The probability that a consumer chooses alternative ( j ) is given by:</p>
+<p><span class="math display">\[
+\mathbb{P}_{ijt} = \frac{e^{x_{ijt}' \beta}}{\sum_{k=1}^{J} e^{x_{ikt}' \beta}}
+\]</span></p>
+<p>We now implement the log-likelihood function and use numerical optimization to estimate ( ).</p>
+<div id="cell-11" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="a56fdffe-4a40-4877-8c58-d79dcaa8c1a3" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> minimize</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>conjoint <span class="op">=</span> pd.read_csv(<span class="st">"/content/conjoint_data.csv"</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>conjoint_encoded <span class="op">=</span> pd.get_dummies(conjoint, columns<span class="op">=</span>[<span class="st">'brand'</span>, <span class="st">'ad'</span>], drop_first<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> conjoint_encoded[[<span class="st">'brand_H'</span>, <span class="st">'brand_P'</span>, <span class="st">'ad_Yes'</span>, <span class="st">'price'</span>]].astype(np.float64).values</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> conjoint_encoded[<span class="st">'choice'</span>].astype(np.int32).values</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>groups <span class="op">=</span> conjoint_encoded.groupby([<span class="st">'resp'</span>, <span class="st">'task'</span>]).ngroup()</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> neg_log_likelihood(beta):</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    beta <span class="op">=</span> np.asarray(beta, dtype<span class="op">=</span>np.float64)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    utilities <span class="op">=</span> X <span class="op">@</span> beta</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    exp_utilities <span class="op">=</span> np.exp(utilities)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    probs <span class="op">=</span> np.zeros_like(exp_utilities)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> g <span class="kw">in</span> np.unique(groups):</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>        mask <span class="op">=</span> (groups <span class="op">==</span> g)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>        denom <span class="op">=</span> np.<span class="bu">sum</span>(exp_utilities[mask])</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>        probs[mask] <span class="op">=</span> exp_utilities[mask] <span class="op">/</span> denom</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    log_likelihood <span class="op">=</span> np.<span class="bu">sum</span>(np.log(probs[y <span class="op">==</span> <span class="dv">1</span>]))</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span>log_likelihood</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>initial_beta <span class="op">=</span> np.zeros(X.shape[<span class="dv">1</span>], dtype<span class="op">=</span>np.float64)</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> minimize(neg_log_likelihood, initial_beta, method<span class="op">=</span><span class="st">'BFGS'</span>)</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>estimated_betas <span class="op">=</span> pd.Series(result.x, index<span class="op">=</span>[<span class="st">'brand_H'</span>, <span class="st">'brand_P'</span>, <span class="st">'ad_Yes'</span>, <span class="st">'price'</span>])</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(estimated_betas)</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>brand_H   -0.941195
+brand_P   -0.439579
+ad_Yes    -0.731994
+price     -0.099480
+dtype: float64</code></pre>
+</div>
+</div>
+</section>
+<section id="estimating-the-mnl-model-via-maximum-likelihood-1" class="level2">
+<h2 class="anchored" data-anchor-id="estimating-the-mnl-model-via-maximum-likelihood-1">3. Estimating the MNL Model via Maximum Likelihood</h2>
+<p>We estimated the parameters of the Multinomial Logit (MNL) model using maximum likelihood. The utility specification includes brand, advertisement exposure, and price. We treat <code>brand_N</code> and <code>ad_No</code> as baseline categories by omitting them from the regression.</p>
+<section id="estimated-coefficients" class="level3">
+<h3 class="anchored" data-anchor-id="estimated-coefficients">Estimated Coefficients:</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Estimate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>brand_H</td>
+<td>-0.9412</td>
+</tr>
+<tr class="even">
+<td>brand_P</td>
+<td>-0.4396</td>
+</tr>
+<tr class="odd">
+<td>ad_Yes</td>
+<td>-0.7320</td>
+</tr>
+<tr class="even">
+<td>price</td>
+<td>-0.0995</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="interpretation">Interpretation:</h3>
+<ul>
+<li>Both <strong>brand_H</strong> and <strong>brand_P</strong> are less preferred than the baseline brand (brand_N). In particular, brand_H is significantly less preferred.</li>
+<li>The negative coefficient on <strong>ad_Yes</strong> suggests that advertising had a <strong>negative</strong> effect on utility. This could reflect poor ad quality or overexposure.</li>
+<li>The <strong>price</strong> coefficient is negative, consistent with economic intuition: as price increases, the probability of choice decreases.</li>
+</ul>
+<p>We now move on to estimate the same model using Bayesian methods, which allows us to quantify uncertainty more explicitly.</p>
+</section>
+</section>
+<section id="bayesian-estimation-using-metropolis-hastings" class="level2">
+<h2 class="anchored" data-anchor-id="bayesian-estimation-using-metropolis-hastings">4. Bayesian Estimation using Metropolis-Hastings</h2>
+<p>To complement the MLE approach, we estimate the Multinomial Logit model using a Bayesian framework. We use the Metropolis-Hastings (MH) algorithm to sample from the posterior distribution of the coefficients.</p>
+<p>We assume independent Normal(0, 1) priors for each parameter:</p>
+<p><span class="math display">\[
+\beta_k \sim \mathcal{N}(0, 1)
+\]</span></p>
+<p>The log-posterior is given by:</p>
+<p><span class="math display">\[
+\log P(\beta \mid \text{data}) \propto \log \mathcal{L}(\beta) + \log \mathcal{P}(\beta)
+\]</span></p>
+<p>Where ( () ) is the likelihood function and ( () ) is the prior.</p>
+<div id="cell-14" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="37e186f0-24c2-4ab1-aee5-bd48f3233036" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> log_prior(beta):</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="fl">0.5</span> <span class="op">*</span> np.<span class="bu">sum</span>(beta<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> log_likelihood(beta):</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    utilities <span class="op">=</span> X <span class="op">@</span> beta</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    exp_utilities <span class="op">=</span> np.exp(utilities)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    probs <span class="op">=</span> np.zeros_like(exp_utilities)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> g <span class="kw">in</span> np.unique(groups):</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        mask <span class="op">=</span> (groups <span class="op">==</span> g)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>        denom <span class="op">=</span> exp_utilities[mask].<span class="bu">sum</span>()</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>        probs[mask] <span class="op">=</span> exp_utilities[mask] <span class="op">/</span> denom</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>(np.log(probs[y <span class="op">==</span> <span class="dv">1</span>]))</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> log_posterior(beta):</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> log_likelihood(beta) <span class="op">+</span> log_prior(beta)</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fast_mh_sampler(log_post, initial, steps<span class="op">=</span><span class="dv">1000</span>, proposal_scale<span class="op">=</span><span class="fl">0.1</span>):</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    beta <span class="op">=</span> np.array(initial)</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    samples <span class="op">=</span> []</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    accepted <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(steps):</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>        proposal <span class="op">=</span> beta <span class="op">+</span> np.random.normal(<span class="dv">0</span>, proposal_scale, size<span class="op">=</span>beta.shape)</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>        lp_current <span class="op">=</span> log_post(beta)</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>        lp_proposal <span class="op">=</span> log_post(proposal)</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>        accept_ratio <span class="op">=</span> np.exp(lp_proposal <span class="op">-</span> lp_current)</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> np.random.rand() <span class="op">&lt;</span> <span class="bu">min</span>(<span class="dv">1</span>, accept_ratio):</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>            beta <span class="op">=</span> proposal</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>            accepted <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>        samples.append(beta.copy())</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Acceptance Rate: </span><span class="sc">{</span>accepted <span class="op">/</span> steps<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array(samples)</span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>initial_beta <span class="op">=</span> np.zeros(X.shape[<span class="dv">1</span>])</span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>samples_fast <span class="op">=</span> fast_mh_sampler(log_posterior, initial_beta, steps<span class="op">=</span><span class="dv">1000</span>, proposal_scale<span class="op">=</span><span class="fl">0.15</span>)</span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>posterior_means_fast <span class="op">=</span> pd.Series(np.mean(samples_fast[<span class="dv">500</span>:], axis<span class="op">=</span><span class="dv">0</span>), index<span class="op">=</span>[<span class="st">'brand_H'</span>, <span class="st">'brand_P'</span>, <span class="st">'ad_Yes'</span>, <span class="st">'price'</span>])</span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(posterior_means_fast)</span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Acceptance Rate: 0.02
+brand_H   -0.987987
+brand_P   -0.495108
+ad_Yes    -0.676342
+price     -0.097416
+dtype: float64</code></pre>
+</div>
+</div>
+</section>
+<section id="bayesian-estimation-using-metropolis-hastings-1" class="level2">
+<h2 class="anchored" data-anchor-id="bayesian-estimation-using-metropolis-hastings-1">4. Bayesian Estimation using Metropolis-Hastings</h2>
+<p>We estimated the parameters of the Multinomial Logit model using a Bayesian approach via the Metropolis-Hastings algorithm. Each coefficient was given a Normal(0, 1) prior, and we used 1,000 sampling steps with a moderate proposal width.</p>
+<p>Although the acceptance rate was relatively low (2%), the chain still explored the posterior distribution and provided stable estimates.</p>
+<section id="posterior-mean-estimates" class="level3">
+<h3 class="anchored" data-anchor-id="posterior-mean-estimates">Posterior Mean Estimates</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Posterior Mean</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>brand_H</td>
+<td>-0.988</td>
+</tr>
+<tr class="even">
+<td>brand_P</td>
+<td>-0.495</td>
+</tr>
+<tr class="odd">
+<td>ad_Yes</td>
+<td>-0.676</td>
+</tr>
+<tr class="even">
+<td>price</td>
+<td>-0.097</td>
+</tr>
+</tbody>
+</table>
+<p>These results are consistent with our MLE estimates from Section 3, reaffirming the conclusion that consumers disfavor brands H and P compared to the base brand N. Ads had a small negative effect, and price negatively impacted choice probability.</p>
+</section>
+</section>
+<section id="comparing-mle-and-bayesian-estimates" class="level2">
+<h2 class="anchored" data-anchor-id="comparing-mle-and-bayesian-estimates">5. Comparing MLE and Bayesian Estimates</h2>
+<p>Below we compare the coefficients estimated using Maximum Likelihood Estimation (MLE) and Bayesian estimation (via Metropolis-Hastings MCMC):</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>MLE Estimate</th>
+<th>Bayesian Mean</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>brand_H</td>
+<td>-0.941</td>
+<td>-0.988</td>
+</tr>
+<tr class="even">
+<td>brand_P</td>
+<td>-0.440</td>
+<td>-0.495</td>
+</tr>
+<tr class="odd">
+<td>ad_Yes</td>
+<td>-0.732</td>
+<td>-0.676</td>
+</tr>
+<tr class="even">
+<td>price</td>
+<td>-0.099</td>
+<td>-0.097</td>
+</tr>
+</tbody>
+</table>
+<section id="interpretation-1" class="level3">
+<h3 class="anchored" data-anchor-id="interpretation-1">Interpretation</h3>
+<ul>
+<li>The estimates are <strong>highly consistent</strong> across the two methods. This suggests the data is informative enough that both MLE and Bayesian approaches converge to similar values.</li>
+<li>The Bayesian method adds the benefit of capturing <strong>uncertainty in the form of posterior distributions</strong> (not just point estimates).</li>
+<li>Minor differences in coefficients reflect the influence of the Normal(0, 1) priors used in the Bayesian approach.</li>
+<li>Despite a low MCMC acceptance rate, the Bayesian estimates remain stable and interpretable.</li>
+</ul>
+<p>Both methods indicate that: - Consumers prefer brand N over brands H and P. - Advertising (as presented) may have a small negative effect. - Higher prices reduce the likelihood of selection.</p>
+<p>This agreement supports confidence in our model’s robustness.</p>
+</section>
+</section>
+<section id="conclusions-and-recommendations" class="level2">
+<h2 class="anchored" data-anchor-id="conclusions-and-recommendations">6. Conclusions and Recommendations</h2>
+<p>This project used both Maximum Likelihood Estimation (MLE) and Bayesian methods to estimate a Multinomial Logit model on simulated conjoint data. The model captured how product attributes — including brand, advertising, and price — influence consumer choice.</p>
+<section id="key-findings" class="level3">
+<h3 class="anchored" data-anchor-id="key-findings">Key Findings:</h3>
+<ul>
+<li><strong>Brand preference</strong>: Brand N is clearly the most preferred option, while brand H is the least favored. This suggests brand equity is strong for N and relatively weak for H.</li>
+<li><strong>Advertising effect</strong>: Surprisingly, advertising was associated with a <strong>negative utility</strong>. This may indicate ineffective messaging, ad fatigue, or poor targeting. Further testing (e.g., A/B testing different ad creatives) is recommended.</li>
+<li><strong>Price sensitivity</strong>: As expected, higher prices reduce the probability of choice. The estimated price coefficient can be used to simulate <strong>price elasticity</strong> and optimize pricing strategy.</li>
+</ul>
+</section>
+<section id="recommendations" class="level3">
+<h3 class="anchored" data-anchor-id="recommendations">Recommendations:</h3>
+<ol type="1">
+<li><strong>Reallocate marketing spend</strong> away from brand H and toward better-performing brands like N, unless brand H is being repositioned or tested.</li>
+<li><strong>Redesign advertising strategy</strong>, focusing on ad content, frequency, and targeting. Since ads currently reduce utility, improving creative quality or better segmentation could reverse this effect.</li>
+<li><strong>Leverage the model for simulation</strong> — use the estimated utilities to simulate market shares under new pricing or promotional strategies.</li>
+<li><strong>Consider Bayesian modeling</strong> in future analyses when quantifying uncertainty is critical — especially in A/B testing or market simulations.</li>
+</ol>
+</section>
+<section id="final-note" class="level3">
+<h3 class="anchored" data-anchor-id="final-note">Final Note:</h3>
+<p>The close agreement between MLE and Bayesian estimates reinforces the stability and robustness of the model. Conjoint analysis, paired with rigorous statistical modeling, offers powerful insights into consumer decision-making and can guide data-driven marketing strategies.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
