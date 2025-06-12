@@ -1,5 +1,61 @@
 [
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Mohammed Alshaghathirah",
+    "section": "",
+    "text": "Hello! I’m Mohammed Alshaghathirah, a graduate student pursuing a Master of Quantitative Finance at UC San Diego.\nI have a strong background in procurement, sales, and administrative coordination, with experience across both the retail and e-commerce sectors. I’m passionate about financial data analysis, business operations, and using technology to drive smart decision-making.\n\n\n\n\n\nSeptember 2015 – September 2017\n- Helped organize events including Saudi National Day.\n- Led a team of Saudi students at international festivals.\n\n\n\nApril 2020 – January 2023\n- Managed advertising campaigns through social media.\n- Built strong supplier and customer relationships.\n- Analyzed marketing and merchandising performance.\n- Sold coffee to local coffee shops and restaurants.\n- Sourced products and negotiated supplier deals.\n\n\n\nJanuary 2023 – September 2024\n- Oversaw full supply chain operations.\n- Ensured timely flow of goods from suppliers to retailers.\n- Managed sales department operations.\n- Handled food redistribution to markets and hypermarkets.\n\n\n\n\n\n\nNative Arabic\n\nFluent English\n\n\n\n\n\n\nMS Office, Google Drive, Email\n\nData Analysis, Time Management\n\nProblem-Solving, Communication\n\n\n\n\n\n\nHomework 1: Matching Donations Replication"
+  },
+  {
+    "objectID": "index.html#experience",
+    "href": "index.html#experience",
+    "title": "Mohammed Alshaghathirah",
+    "section": "",
+    "text": "September 2015 – September 2017\n- Helped organize events including Saudi National Day.\n- Led a team of Saudi students at international festivals.\n\n\n\nApril 2020 – January 2023\n- Managed advertising campaigns through social media.\n- Built strong supplier and customer relationships.\n- Analyzed marketing and merchandising performance.\n- Sold coffee to local coffee shops and restaurants.\n- Sourced products and negotiated supplier deals.\n\n\n\nJanuary 2023 – September 2024\n- Oversaw full supply chain operations.\n- Ensured timely flow of goods from suppliers to retailers.\n- Managed sales department operations.\n- Handled food redistribution to markets and hypermarkets."
+  },
+  {
+    "objectID": "index.html#languages",
+    "href": "index.html#languages",
+    "title": "Mohammed Alshaghathirah",
+    "section": "",
+    "text": "Native Arabic\n\nFluent English"
+  },
+  {
+    "objectID": "index.html#skills",
+    "href": "index.html#skills",
+    "title": "Mohammed Alshaghathirah",
+    "section": "",
+    "text": "MS Office, Google Drive, Email\n\nData Analysis, Time Management\n\nProblem-Solving, Communication"
+  },
+  {
+    "objectID": "index.html#homework-pages",
+    "href": "index.html#homework-pages",
+    "title": "Mohammed Alshaghathirah",
+    "section": "",
+    "text": "Homework 1: Matching Donations Replication"
+  },
+  {
+    "objectID": "homework2.html",
+    "href": "homework2.html",
+    "title": "Homework 2",
+    "section": "",
+    "text": "Homework 2: Poisson Regression & MLE\n👉 Click here to view the full blog post"
+  },
+  {
+    "objectID": "homework1.html",
+    "href": "homework1.html",
+    "title": "Homework 1",
+    "section": "",
+    "text": "Homework 1\nHere is my analysis for Homework 1.\n👉 Click here to view the full blog post"
+  },
+  {
+    "objectID": "homework3.html",
+    "href": "homework3.html",
+    "title": "Homework 3: Multinomial Logit Model",
+    "section": "",
+    "text": "title: “Homework 3” format: html page-layout: article —\n\nHomework 3: Multinomial Logit Model\n👉 Click here to view the full blog post"
+  },
+  {
     "objectID": "homework 3.html",
     "href": "homework 3.html",
     "title": "Multinomial Logit Model",
@@ -68,61 +124,5 @@
     "title": "Multinomial Logit Model",
     "section": "6. Conclusions and Recommendations",
     "text": "6. Conclusions and Recommendations\nThis project used both Maximum Likelihood Estimation (MLE) and Bayesian methods to estimate a Multinomial Logit model on simulated conjoint data. The model captured how product attributes — including brand, advertising, and price — influence consumer choice.\n\nKey Findings:\n\nBrand preference: Brand N is clearly the most preferred option, while brand H is the least favored. This suggests brand equity is strong for N and relatively weak for H.\nAdvertising effect: Surprisingly, advertising was associated with a negative utility. This may indicate ineffective messaging, ad fatigue, or poor targeting. Further testing (e.g., A/B testing different ad creatives) is recommended.\nPrice sensitivity: As expected, higher prices reduce the probability of choice. The estimated price coefficient can be used to simulate price elasticity and optimize pricing strategy.\n\n\n\nRecommendations:\n\nReallocate marketing spend away from brand H and toward better-performing brands like N, unless brand H is being repositioned or tested.\nRedesign advertising strategy, focusing on ad content, frequency, and targeting. Since ads currently reduce utility, improving creative quality or better segmentation could reverse this effect.\nLeverage the model for simulation — use the estimated utilities to simulate market shares under new pricing or promotional strategies.\nConsider Bayesian modeling in future analyses when quantifying uncertainty is critical — especially in A/B testing or market simulations.\n\n\n\nFinal Note:\nThe close agreement between MLE and Bayesian estimates reinforces the stability and robustness of the model. Conjoint analysis, paired with rigorous statistical modeling, offers powerful insights into consumer decision-making and can guide data-driven marketing strategies."
-  },
-  {
-    "objectID": "homework2.html",
-    "href": "homework2.html",
-    "title": "Homework 2",
-    "section": "",
-    "text": "Homework 2: Poisson Regression & MLE\n👉 Click here to view the full blog post"
-  },
-  {
-    "objectID": "homework1.html",
-    "href": "homework1.html",
-    "title": "Homework 1",
-    "section": "",
-    "text": "Homework 1\nHere is my analysis for Homework 1.\n👉 Click here to view the full blog post"
-  },
-  {
-    "objectID": "homework3.html",
-    "href": "homework3.html",
-    "title": "Homework 3: Multinomial Logit Model",
-    "section": "",
-    "text": "title: “Homework 3” format: html page-layout: article —\n\nHomework 3: Multinomial Logit Model\n👉 Click here to view the full blog post"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Mohammed Alshaghathirah",
-    "section": "",
-    "text": "Hello! I’m Mohammed Alshaghathirah, a graduate student pursuing a Master of Quantitative Finance at UC San Diego.\nI have a strong background in procurement, sales, and administrative coordination, with experience across both the retail and e-commerce sectors. I’m passionate about financial data analysis, business operations, and using technology to drive smart decision-making.\n\n\n\n\n\nSeptember 2015 – September 2017\n- Helped organize events including Saudi National Day.\n- Led a team of Saudi students at international festivals.\n\n\n\nApril 2020 – January 2023\n- Managed advertising campaigns through social media.\n- Built strong supplier and customer relationships.\n- Analyzed marketing and merchandising performance.\n- Sold coffee to local coffee shops and restaurants.\n- Sourced products and negotiated supplier deals.\n\n\n\nJanuary 2023 – September 2024\n- Oversaw full supply chain operations.\n- Ensured timely flow of goods from suppliers to retailers.\n- Managed sales department operations.\n- Handled food redistribution to markets and hypermarkets.\n\n\n\n\n\n\nNative Arabic\n\nFluent English\n\n\n\n\n\n\nMS Office, Google Drive, Email\n\nData Analysis, Time Management\n\nProblem-Solving, Communication\n\n\n\n\n\n\nHomework 1: Matching Donations Replication"
-  },
-  {
-    "objectID": "index.html#experience",
-    "href": "index.html#experience",
-    "title": "Mohammed Alshaghathirah",
-    "section": "",
-    "text": "September 2015 – September 2017\n- Helped organize events including Saudi National Day.\n- Led a team of Saudi students at international festivals.\n\n\n\nApril 2020 – January 2023\n- Managed advertising campaigns through social media.\n- Built strong supplier and customer relationships.\n- Analyzed marketing and merchandising performance.\n- Sold coffee to local coffee shops and restaurants.\n- Sourced products and negotiated supplier deals.\n\n\n\nJanuary 2023 – September 2024\n- Oversaw full supply chain operations.\n- Ensured timely flow of goods from suppliers to retailers.\n- Managed sales department operations.\n- Handled food redistribution to markets and hypermarkets."
-  },
-  {
-    "objectID": "index.html#languages",
-    "href": "index.html#languages",
-    "title": "Mohammed Alshaghathirah",
-    "section": "",
-    "text": "Native Arabic\n\nFluent English"
-  },
-  {
-    "objectID": "index.html#skills",
-    "href": "index.html#skills",
-    "title": "Mohammed Alshaghathirah",
-    "section": "",
-    "text": "MS Office, Google Drive, Email\n\nData Analysis, Time Management\n\nProblem-Solving, Communication"
-  },
-  {
-    "objectID": "index.html#homework-pages",
-    "href": "index.html#homework-pages",
-    "title": "Mohammed Alshaghathirah",
-    "section": "",
-    "text": "Homework 1: Matching Donations Replication"
   }
 ]
