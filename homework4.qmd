@@ -1,0 +1,10 @@
+title: "Homework 4"
+format: html
+page-layout: article
+---
+
+# Homework 4: Machine Learning Applications in Marketing
+
+
+
+👉 [Click here to view the full blog post](homework 4.html)
